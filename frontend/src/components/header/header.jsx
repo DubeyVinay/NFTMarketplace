@@ -1,8 +1,9 @@
 import React from 'react'
-import '/Users/dr.mac/Desktop/blockchainproject/Marketplace/frontend/src/components/Header/Header.css'
 import {Container} from 'reactstrap';
 import { NavLink, Link} from 'react-router-dom';
 import { useRef, useEffect } from 'react';
+import '../Header/Header.css'
+
 
 const NAV__LINKS = [
   {

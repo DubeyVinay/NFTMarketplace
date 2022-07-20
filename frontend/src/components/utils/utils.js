@@ -11,3 +11,4 @@ export const truncateAddress = (address) => {
     const val = Number(num);
     return "0x" + val.toString(16);
   };
+

@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, ListGroup, ListGroupItem } from "reactstrap";
 import { Link } from "react-router-dom";
-import './footer.css'
+import '/Users/dr.mac/Documents/blockchainproject/Marketplace/frontend/src/components/Footer/footer.css'
 const MY__ACCOUNT = [
   {
     display: "Author Profile",
