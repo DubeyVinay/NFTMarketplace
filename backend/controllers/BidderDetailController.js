@@ -12,7 +12,7 @@ const express = require('express');
 //     resp.send(result);
 // });
 
-exports.create_post = async function(req,resp){
+exports.create_bid = async function(req,resp){
     const data = new bidderDetailSchema(req.body);
     const result = await data.save();
     console.log(req.body);
@@ -25,7 +25,7 @@ exports.create_post = async function(req,resp){
 //     resp.send(data);
 // });
 
-exports.get_posts = async function(req,resp){
+exports.get_bid = async function(req,resp){
 
     const data = await bidderDetailSchema.find();
     resp.send(data);
@@ -37,10 +37,11 @@ exports.get_posts = async function(req,resp){
 //     resp.send(data);
 // });
 
-exports.delete_posts = async function(req,resp){
+exports.delete_bid = async function(req,resp){
 
     console.log(req.params);
     const data = await bidderDetailSchema.deleteOne(req.params);
+    console.log("HJsdjkd<<<>>",data);
     resp.send(data);
 }
 
@@ -55,9 +56,9 @@ exports.delete_posts = async function(req,resp){
 //     resp.send(data);
 // });
 
-exports.put_post = async function(req,resp){
+exports.put_bid = async function(req,resp){
     console.log(req.params);
-    const data = await bidderDetailSchema.updateOne(
+    const data = await bidderDetailSchema.updateMany(
         req.params,
         {
             $set:req.body
