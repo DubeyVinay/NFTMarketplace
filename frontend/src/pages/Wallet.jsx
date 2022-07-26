@@ -106,6 +106,25 @@ const Wallet = () => {
   //   })
 
   // };
+
+
+  const connect = () =>{
+      if (typeof window.ethereum == 'undefined') {
+console.log('MetaMask is not installed!');
+alert('MetaMask is not installed!')
+}
+else{
+      
+      activate(Injected);
+      
+      setProvider("Injected");
+      // this.setState({
+      //   isActive:true
+      // })
+     
+    }
+  }
+  
   console.log("ccccccc",account);
   
   return (
@@ -118,23 +137,7 @@ const Wallet = () => {
           <div >
             {/* {this.state.isActive ? "true" : "false"} */}
           
-          <Button onClick={() => {
-
-                    if (typeof window.ethereum == 'undefined') {
-    console.log('MetaMask is not installed!');
-    alert('MetaMask is not installed!')
-  }
-  else{
-                    
-                    activate(Injected);
-                    
-                    setProvider("Injected");
-                    // this.setState({
-                    //   isActive:true
-                    // })
-                   
-                  }}
-                } 
+          <Button onClick={connect} 
                   className="btn__metamask">
               <span>Connect to Metamask</span>
           </Button>

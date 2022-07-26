@@ -1,23 +1,27 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 
 import { useState, useEffect, setState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Container, Row, Col } from "reactstrap";
 import { createFlatSale } from "../ApiCalls/FixedPriceApi";
+import { UserDetailsApi } from "../ApiCalls/UserDetailsApi";
 import { Buffer } from "buffer";
 import Wallet from "../../pages/Wallet";
 import '../NftForm/NftForm.css'
 import Switch from 'react-switch'
 import ABI from '../ABI.json'
-import {create} from 'ipfs-http-client';
+import { create } from 'ipfs-http-client';
 import { useWeb3React } from "@web3-react/core";
 import Web3 from "web3";
+import { Sign } from "../utils/utils"
 
 const client = create('https://ipfs.infura.io:5001/api/v0');
 
 const NftForm = () => {
 
-  const { account } = useWeb3React();
+  let web3 = new Web3(window.ethereum);
+
+  const { account, library } = useWeb3React();
   const [buffer, setBuffer] = useState(null);
   const isActive = localStorage.getItem("isActive");
   const newContract = '0xE96282a67a7155a246cee36E146dA7Da1D3cdD5C'
@@ -30,27 +34,32 @@ const NftForm = () => {
     royalty: "",
     Imguri: "",
     uri: "",
+    tokenId: "",
+    signature: "  "
 
   });
 
-  useEffect(() => { }, []);
+  
+  const _tokenId = 0;
+
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!account) {
       return console.log("Please connect your wallet first.");
+      alert("Please connect your wallet first.")
 
     }
     else {
-
-
 
       const _json = new File([JSON.stringify(formData)], 'metadata.json');
       console.log("JSON File", _json);
 
       const json_add = await client.add(_json);
-      const json_cid = `https://ipfs.infura.io/ipfs/${json_add.path}`;
+      const json_cid = json_add.path;
       formData.uri = json_cid;
       formData.seller_address = account;
       console.log("Json file cid", json_cid);
@@ -58,10 +67,31 @@ const NftForm = () => {
 
       console.log("Accounts", account);
 
+      if (isSale) {
+
+        // const _signature = await msgSignature(account);
+        // await  msgSignature(formData.uri,account);
+        //   console.log(window.ethereum);
+
+        //   formData.signature = signature;
+        await createFlatSale(formData);
+        // console.log(account);
+        const _accounts = account;
+        const _tokenUri = formData.uri;
+        const _amount = formData.sale_amount;
+        const Signature = await Sign(_accounts,_tokenUri,_amount);
+        console.log("aaaaaaa",Signature);
+        
+
+      }
+      else {
+        UserDetailsApi(formData);
+      }
 
     }
-    createFlatSale(formData);
   };
+
+
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -70,10 +100,6 @@ const NftForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const token_signature = async () => {
-
-
-  }
   const getFile = async (e) => {
     const file = e.target.files[0]
     const added = await client.add(file)
@@ -83,7 +109,6 @@ const NftForm = () => {
   }
 
   const getCidMetaData = async (e, metadata) => {
-
     const added = await client.add()
     const cid = `https://ipfs.infura.io/ipfs/${added.path}`
     formData.uri = cid;

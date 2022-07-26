@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import './hero-section.css'
 
 import FixedPriceNfts from "../FixedPriceNfts/FixedPriceNfts";
+import App from "../../pages/WalletCo/walletConnect"
 
 
 const HeroSection = () => {
@@ -43,6 +44,12 @@ NFT marketplace</h2>
       <Container>
         <Row>
           <FixedPriceNfts/>
+        </Row>
+      </Container>
+
+      <Container>
+        <Row>
+          <App/>
         </Row>
       </Container>
     </section>
