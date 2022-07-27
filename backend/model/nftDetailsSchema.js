@@ -14,7 +14,7 @@ const nftDetailsSchema = new mongoose.Schema({
     
     token_id:{
         type:Number,
-        unique: true,
+        // unique: false,
     },
     collection_address:{
         type:String,
