@@ -4,7 +4,8 @@ import { useState, useEffect, setState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Container, Row, Col } from "reactstrap";
 import { createFlatSale } from "../ApiCalls/FixedPriceApi";
-import { UserDetailsApi } from "../ApiCalls/UserDetailsApi";
+import {createNFT} from "../ApiCalls/NFTDetails";
+
 import { Buffer } from "buffer";
 import Wallet from "../../pages/Wallet";
 import '../NftForm/NftForm.css'
@@ -24,7 +25,7 @@ const NftForm = () => {
   const { account, library } = useWeb3React();
   const [buffer, setBuffer] = useState(null);
   const isActive = localStorage.getItem("isActive");
-  const newContract = '0xE96282a67a7155a246cee36E146dA7Da1D3cdD5C'
+
   const [isSale, setIsSale] = useState(false)
   const [formData, setFormData] = useState({
     nft__name: "",
@@ -34,7 +35,7 @@ const NftForm = () => {
     royalty: "",
     Imguri: "",
     uri: "",
-    tokenId: "",
+    token_id: "",
     signature: "  "
 
   });
@@ -42,15 +43,15 @@ const NftForm = () => {
   
   const _tokenId = 0;
 
-
+  formData.token_id = _tokenId;
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!account) {
-      return console.log("Please connect your wallet first.");
-      alert("Please connect your wallet first.")
+      return alert("Please connect your wallet first.")
+      
 
     }
     else {
@@ -75,6 +76,7 @@ const NftForm = () => {
 
         //   formData.signature = signature;
         await createFlatSale(formData);
+        //await createNFT(formData);
         // console.log(account);
         const _accounts = account;
         const _tokenUri = formData.uri;
@@ -85,7 +87,7 @@ const NftForm = () => {
 
       }
       else {
-        UserDetailsApi(formData);
+        await createNFT(formData);
       }
 
     }
@@ -109,7 +111,7 @@ const NftForm = () => {
   }
 
   const getCidMetaData = async (e, metadata) => {
-    const added = await client.add()
+    const added = await client.add(metadata)
     const cid = `https://ipfs.infura.io/ipfs/${added.path}`
     formData.uri = cid;
     console.log("form cid", formData.uri);

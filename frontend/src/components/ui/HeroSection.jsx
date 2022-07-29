@@ -46,12 +46,6 @@ NFT marketplace</h2>
           <FixedPriceNfts/>
         </Row>
       </Container>
-
-      <Container>
-        <Row>
-          <App/>
-        </Row>
-      </Container>
     </section>
 
   );

@@ -17,9 +17,9 @@ const flateSaleSchema = new mongoose.Schema({
     sale_amount:{
         type:Number,
     },
-    time_limit:{
-        type:Date,
-    },
+    // time_limit:{
+    //     type:Date,
+    // },
     payment_asset_address:{
         type:String,
     },
@@ -37,6 +37,9 @@ const flateSaleSchema = new mongoose.Schema({
     },
     royalty:{
         type:Number,
+    },
+    Imguri:{
+        type:String,
     }
     
 
