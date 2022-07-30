@@ -81,11 +81,37 @@ const update_nonce = async function(req,res){
     console.log("CurrentNonce",CurrentNonce);
     let UpdateNonce = 1 + + parseInt(CurrentNonce);
     console.log("updated nonce",UpdateNonce);
-    try{
-        // console.log("Inside try");
-        if(UpdateNonce){
 
+    // try{
+    //     let data1 = await nonceSchema.findOne({nonce : 0});
+    //     console.log("Data is",data1);
+    //     if(!data1 || NonceToBeUpdateWith == 0) {
+    //         const result = await nonceSchema.create(req.body);
+    //             console.log("result<<<<<<<<",result);
+
+    //             res.send(result);
+    //     } 
+    // }catch(err){
+    //     res.json({ message: err })
+    // }
+
+
+   
+    try{    
+
+        let data1 = await nonceSchema.findOne({nonce : NonceToBeUpdateWith});
+        console.log("Data is",data1);
+        if(!data1 && NonceToBeUpdateWith == 0) {
             console.log("Inside if");
+            const result = await nonceSchema.create(req.body);
+                console.log("result<<<<<<<<",result);
+
+                res.send(result);
+        } 
+        // console.log("Inside try");
+        else if(UpdateNonce){
+
+            console.log("Inside else if");
 
      
             const data = await nonceSchema.updateOne(
