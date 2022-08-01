@@ -15,6 +15,7 @@ import { create } from 'ipfs-http-client';
 import { useWeb3React } from "@web3-react/core";
 import Web3 from "web3";
 import { SetApprovalForAll, Sign } from "../utils/utils"
+import { Nonce } from "../ApiCalls/NonceApi";
 
 const client = create('https://ipfs.infura.io:5001/api/v0');
 
@@ -38,7 +39,8 @@ const NftForm = () => {
     Imguri: "",
     uri: "",
     token_id: "",
-    signature: ""
+    signature: "",
+    nonce:""
 
   });
 
@@ -59,8 +61,15 @@ const NftForm = () => {
 
       const json_add = await client.add(_json);
       const json_cid = json_add.path;
+
+      const _nonce = await Nonce();
+
+
+
       formData.uri = json_cid;
       formData.seller_address = account;
+      formData.nonce = _nonce[0].nonce;
+
       console.log("Json file cid", json_cid);
       console.log("Form Data", formData);
 

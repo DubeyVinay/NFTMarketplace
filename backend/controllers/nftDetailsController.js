@@ -18,18 +18,22 @@ const create_nft_details = async function(req,res){
 
         let data1 = await nftDetailsSchema.findOne({token_id : tokenIdFromUI});
         console.log("Data is",data1);
-
-        // if(requ.body.saleType == 'fixed' ){
-            // saleType == requ.body.saleType
-        // }
-        // else if(requ.body.saleType ==  'auction'){
-            // saleType == requ.body.saleType
-        // }
-        // saleType == requ.body.saleType ''
         
-        
+        // await nftDetailsSchema.remove();
+        // if (!data1){
+        //     const data = new nftDetailsSchema(req.body);
+        //     console.log("Creating New Entry with token ID: ",data.token_id);
+        //     const result = await data.save();
+        //     console.log("result<<<<<<<<",result);
 
-        if (!data1){
+        //     res.send(result);
+        //     console.log("<<<<");
+        // }
+
+        console.log("tokenIdFromUI", tokenIdFromUI)
+
+        if (!data1 || tokenIdFromUI == 0){
+            console.log("inside if");
             // const data = new nftDetailsSchema(req.body);
             // console.log("Creating New Entry with token ID: ",data.token_id);
             // 
@@ -39,7 +43,7 @@ const create_nft_details = async function(req,res){
             res.send(result);
         }
         else if(tokenIdFromUI){
-            console.log("Inside else");
+            console.log("Inside else if");
             
             const data = await nftDetailsSchema.updateOne(
                 {token_id:tokenIdFromUI},

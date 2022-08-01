@@ -62,7 +62,7 @@ const FixedPriceNfts = () => {
     { formData.map((item) =>(
 
       lazyBuySellerArgs = [
-        1,
+        item?.nonce,
         account,
         erc721Address,
          wethAddress,
