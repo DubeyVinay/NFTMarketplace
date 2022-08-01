@@ -18,6 +18,15 @@ const create_nft_details = async function(req,res){
 
         let data1 = await nftDetailsSchema.findOne({token_id : tokenIdFromUI});
         console.log("Data is",data1);
+
+        // if(requ.body.saleType == 'fixed' ){
+            // saleType == requ.body.saleType
+        // }
+        // else if(requ.body.saleType ==  'auction'){
+            // saleType == requ.body.saleType
+        // }
+        // saleType == requ.body.saleType ''
+        
         
 
         if (!data1){

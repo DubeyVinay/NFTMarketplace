@@ -4,17 +4,17 @@ import { useState, useEffect, setState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Container, Row, Col } from "reactstrap";
 import { createFlatSale } from "../ApiCalls/FixedPriceApi";
-import {createNFT} from "../ApiCalls/NFTDetails";
+import { createNFT } from "../ApiCalls/NFTDetails";
 
 import { Buffer } from "buffer";
 import Wallet from "../../pages/Wallet";
 import '../NftForm/NftForm.css'
 import Switch from 'react-switch'
-import ABI from '../ABI.json'
+
 import { create } from 'ipfs-http-client';
 import { useWeb3React } from "@web3-react/core";
 import Web3 from "web3";
-import { Sign } from "../utils/utils"
+import { SetApprovalForAll, Sign } from "../utils/utils"
 
 const client = create('https://ipfs.infura.io:5001/api/v0');
 
@@ -25,7 +25,9 @@ const NftForm = () => {
   const { account, library } = useWeb3React();
   const [buffer, setBuffer] = useState(null);
   const isActive = localStorage.getItem("isActive");
-
+  const marketPlaceAddress = process.env.REACT_APP_MARKETPLACE_ADDRESS;
+  const wethAddress = process.env.REACT_APP_WETH_ADDRESS;
+  const erc721Address = process.env.REACT_APP_ERC721_ADDRESS
   const [isSale, setIsSale] = useState(false)
   const [formData, setFormData] = useState({
     nft__name: "",
@@ -36,22 +38,18 @@ const NftForm = () => {
     Imguri: "",
     uri: "",
     token_id: "",
-    signature: "  "
+    signature: ""
 
   });
 
-  
   const _tokenId = 0;
-
   formData.token_id = _tokenId;
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!account) {
-      return alert("Please connect your wallet first.")
-      
+      return alert("Please connect your wallet first.");
+
 
     }
     else {
@@ -70,20 +68,15 @@ const NftForm = () => {
 
       if (isSale) {
 
-        // const _signature = await msgSignature(account);
-        // await  msgSignature(formData.uri,account);
-        //   console.log(window.ethereum);
-
-        //   formData.signature = signature;
-        await createFlatSale(formData);
-        //await createNFT(formData);
-        // console.log(account);
         const _accounts = account;
         const _tokenUri = formData.uri;
         const _amount = formData.sale_amount;
-        const Signature = await Sign(_accounts,_tokenUri,_amount);
-        console.log("aaaaaaa",Signature);
-        
+        const Signature = await Sign(_accounts, erc721Address, _tokenId, wethAddress, _tokenUri, _amount);
+        console.log("aaaaaaa", Signature);
+        formData.signature = Signature;
+        await createFlatSale(formData);
+        const done = await SetApprovalForAll(true, account);
+        // (setapporforAll(erc721))
 
       }
       else {
@@ -92,8 +85,6 @@ const NftForm = () => {
 
     }
   };
-
-
 
   const handleChange = (e) => {
     const name = e.target.name;

@@ -82,10 +82,19 @@ const Wallet = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const provider = window.localStorage.getItem("provider");
-  //   if (provider) activate(provider);
-  // }, []);
+  useEffect(() => {
+    const connectWalletOnPageLoad = async () => {
+      if (localStorage?.getItem('isWalletConnected') === 'true') {
+        try {
+          await activate(Injected)
+          localStorage.setItem('isWalletConnected', true)
+        } catch (ex) {
+          console.log(ex)
+        }
+      }
+    }
+    connectWalletOnPageLoad()
+  }, []);
 
   const refreshState = () => {
     window.localStorage.setItem("provider", undefined);
@@ -118,6 +127,8 @@ else{
       activate(Injected);
       
       setProvider("Injected");
+
+      localStorage.setItem('isWalletConnected',true)
       // this.setState({
       //   isActive:true
       // })
