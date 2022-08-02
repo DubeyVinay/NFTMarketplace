@@ -3,6 +3,17 @@ const nonceSchema = require('../model/nonceSchema');
 require('express');
 
 
+
+const set_nonce = async function (req, resp) {
+    // const data = new AuctionDetailsSchema(req.body);
+    let createNonce = 0;
+    const result = await nonceSchema.create({nonce : createNonce})
+    console.log("result <<<<",result);
+    // const result = await data.save();
+    // console.log(req.body);
+    resp.send(result);
+};
+
 const get_nonce = async function(req,res){
     const  currentNonce = req.body.nonce
     console.log("currentNonce",currentNonce);
@@ -22,6 +33,7 @@ const update_nonce = async function(req,res){
     // let  NonceToBeUpdateWith = req.body.nonce
     // console.log("NonceToBeUpdateWith>>>>>>",NonceToBeUpdateWith);
     let CurrentNonce = req.params.nonce
+    // let CurrentNonce = nonceSchema.findOne();
     console.log("CurrentNonce",CurrentNonce);
     let UpdateNonce = parseInt(CurrentNonce)+1;
     console.log("updated nonce",UpdateNonce);
@@ -66,7 +78,7 @@ const update_nonce = async function(req,res){
 
 
 module.exports = {
-    // set_nonce,
+    set_nonce,
     get_nonce,
     update_nonce
 }
