@@ -129,3 +129,6 @@
 .mobile__menu{
     display: block;
 }
+.btn:hover{
+    border: none !important;
+}

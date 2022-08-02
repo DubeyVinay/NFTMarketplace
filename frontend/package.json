@@ -29,6 +29,7 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "4.0.1",
     "react-switch": "^7.0.0",
+    "react-tabs": "^5.1.0",
     "reactstrap": "^9.1.1",
     "remixicon": "^2.5.0",
     "web3": "^1.7.4"

@@ -8,7 +8,7 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 //import { networkParams } from '../components/networks/networks';
 import { Container, Row, Col, Button, Toast } from 'reactstrap';
 import { Link } from 'react-router-dom';
-
+import { connect } from '../components/utils/utils';
 import "./wallet.css"
 
 
@@ -86,7 +86,7 @@ const Wallet = () => {
     const connectWalletOnPageLoad = async () => {
       if (localStorage?.getItem('isWalletConnected') === 'true') {
         try {
-          await activate(Injected)
+          await connect();
           localStorage.setItem('isWalletConnected', true)
         } catch (ex) {
           console.log(ex)
@@ -116,25 +116,27 @@ const Wallet = () => {
 
   // };
 
-
   const connect = () =>{
+
+
       if (typeof window.ethereum == 'undefined') {
-console.log('MetaMask is not installed!');
-alert('MetaMask is not installed!')
-}
-else{
+    console.log('MetaMask is not installed!');
+    alert('MetaMask is not installed!')
+    }
+    else{
       
       activate(Injected);
       
       setProvider("Injected");
-
+    
       localStorage.setItem('isWalletConnected',true)
       // this.setState({
       //   isActive:true
       // })
      
     }
-  }
+    }
+  
   
   console.log("ccccccc",account);
   
@@ -148,7 +150,7 @@ else{
           <div >
             {/* {this.state.isActive ? "true" : "false"} */}
           
-          <Button onClick={connect} 
+          <Button onClick={connect}
                   className="btn__metamask">
               <span>Connect to Metamask</span>
           </Button>

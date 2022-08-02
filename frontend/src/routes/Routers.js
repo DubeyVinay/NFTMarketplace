@@ -6,6 +6,7 @@ import Market from '../pages/Market';
 import Wallet from '../pages/Wallet';
 import Contact from '../pages/Contact';
 import Create from '../pages/Create';
+import UserProfile from '../pages/UserProfile';
  
 const Routers  = () => {
   return <Routes>
@@ -15,6 +16,7 @@ const Routers  = () => {
     <Route path='/wallet' element={<Wallet/>}/>
     <Route path='/contact' element={<Contact/>}/>
     <Route path='/create' element={<Create/>}/>
+    <Route path='/user' element={<UserProfile/>}/>
 
 
 

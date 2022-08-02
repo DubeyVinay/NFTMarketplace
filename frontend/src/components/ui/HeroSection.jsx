@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import './hero-section.css'
 
 import MarketPlace from "../MarketPlace/MarketPlace";
-import App from "../../pages/WalletCo/walletConnect"
+
 
 
 const HeroSection = () => {

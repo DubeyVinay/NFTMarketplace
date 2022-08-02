@@ -94,7 +94,7 @@ const FixedPriceNfts = () => {
   }
     
     // if isAppforAll(erc721) ==true && alllwaqnce(weth) => amonut ) /else { apporve(weth)}
-    debugger
+    
     let allownce = await Allowance(account,marketPlaceAddress)
      if(allownce >= lazyBuySellerArgs[6]){
 

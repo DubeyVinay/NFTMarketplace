@@ -7,7 +7,7 @@ import { createFlatSale } from "../ApiCalls/FixedPriceApi";
 import { createNFT } from "../ApiCalls/NFTDetails";
 
 import { Buffer } from "buffer";
-import Wallet from "../../pages/Wallet";
+
 import '../NftForm/NftForm.css'
 import Switch from 'react-switch'
 
@@ -17,13 +17,15 @@ import Web3 from "web3";
 import { SetApprovalForAll, Sign } from "../utils/utils"
 import { Nonce } from "../ApiCalls/NonceApi";
 
+
 const client = create('https://ipfs.infura.io:5001/api/v0');
 
 const NftForm = () => {
 
+
   let web3 = new Web3(window.ethereum);
 
-  const { account, library } = useWeb3React();
+  const { account, library} = useWeb3React();
   const [buffer, setBuffer] = useState(null);
   const isActive = localStorage.getItem("isActive");
   const marketPlaceAddress = process.env.REACT_APP_MARKETPLACE_ADDRESS;
@@ -44,6 +46,7 @@ const NftForm = () => {
 
   });
 
+
   const _tokenId = 0;
   formData.token_id = _tokenId;
 
@@ -62,13 +65,13 @@ const NftForm = () => {
       const json_add = await client.add(_json);
       const json_cid = json_add.path;
 
-      const _nonce = await Nonce();
+      const _nonce = 0;
 
 
 
       formData.uri = json_cid;
       formData.seller_address = account;
-      formData.nonce = _nonce[0].nonce;
+      formData.nonce = 0
 
       console.log("Json file cid", json_cid);
       console.log("Form Data", formData);

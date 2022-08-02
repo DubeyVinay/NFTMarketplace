@@ -6,7 +6,9 @@ import marketplaceAbi from "./ABI.json"
 import erc721Abi from "./erc721Abi.json"
 import wethAbi from "./wethAbi.json"
 
+
 const web3 = new Web3(window.ethereum)
+
 
 const marketPlaceAddress = process.env.REACT_APP_MARKETPLACE_ADDRESS;
 const wethAddress = process.env.REACT_APP_WETH_ADDRESS;
@@ -29,6 +31,7 @@ export const toHex = (num) => {
   const val = Number(num);
   return "0x" + val.toString(16);
 };
+
 
 export const Sign = async (account,nft_address,token_id,weth_address, tokenURi, amount) => {
   let message = ethers.utils.solidityPack(

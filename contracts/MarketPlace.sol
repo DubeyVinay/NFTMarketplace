@@ -58,6 +58,7 @@ contract MarketPlace is Initializable, OwnableUpgradeable {
 
     mapping(uint256 => bool) public isNonceProcessed; //mapping for nonce.
 
+
     /**
      * @dev Method to set platFormFeePercent.
      * @notice This method initializes the PlatFormFee.
@@ -66,6 +67,8 @@ contract MarketPlace is Initializable, OwnableUpgradeable {
         __Ownable_init();
         platFormFeePercent = 250;
     }
+
+  
     
     /**
      *@dev Method to update/reset platFormFeePercent.
@@ -82,10 +85,14 @@ contract MarketPlace is Initializable, OwnableUpgradeable {
      *@param sellerDetails: the seller details provide all the necessary detail for the seller.
      */
     function lazyBuy(SellerDetails calldata sellerDetails) external {
+        
+        
         require(
             !isNonceProcessed[sellerDetails.nonce],
             "MarketPlace: nonce already process"
         );
+
+       
         // validate seller
         address signer = verifySellerSign(
             sellerDetails);
