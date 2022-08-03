@@ -1,8 +1,10 @@
 import React from 'react'
-import '/Users/dr.mac/Desktop/blockchainproject/Marketplace/frontend/src/components/Header/Header.css'
 import {Container} from 'reactstrap';
 import { NavLink, Link} from 'react-router-dom';
 import { useRef, useEffect } from 'react';
+import '../Header/Header.css'
+import { useWeb3React } from '@web3-react/core';
+
 
 const NAV__LINKS = [
   {
@@ -25,9 +27,15 @@ const NAV__LINKS = [
     display:'Wallet',
     url:'/wallet '
   },
+  {
+    display:'User',
+    url:'/user '
+  },
 ]
 
 const Header = () => {
+
+  const {account} = useWeb3React();
 
   const headerRef = useRef(null);
 
@@ -46,9 +54,14 @@ const Header = () => {
         </div>
 
         <div className="nav__right d-flex align-items-center gap-5">
-          <button className="btn d-flex align-items-center gap-2">
+
+          { 
+            !account ? (<button className="btn d-flex align-items-center gap-2">
             <Link to='/wallet'><span><i class="ri-wallet-2-line"></i></span>Connect Wallet</Link>
-          </button>
+          </button>) : (<button className="btn d-flex align-items-center gap-2"><Link to='/user'><i class="ri-store-2-fill"></i></Link></button>)
+
+          }
+          
           <div>
           <span className="mobile__menu"><i class="ri-menu-2-line" onClick={toggleMenu}></i></span>
           <div className="nav__menu" ref={menuRef} onClick={toggleMenu}>

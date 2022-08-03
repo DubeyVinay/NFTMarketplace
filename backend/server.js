@@ -15,6 +15,7 @@ const app = express();
 app.use(express.json());
 require('./model/db');
 
+const port = 8000;
 
 app.use(cors({
     origin: '*'
@@ -29,4 +30,5 @@ app.use('/nftdetails',NFTDetailsRoute);
 app.use('/nonce',NonceRoute);
 app.use('/Marketplace',MarketplaceRoute);
 
-app.listen(8000);
+console.log("server at port:",port);
+app.listen(port);

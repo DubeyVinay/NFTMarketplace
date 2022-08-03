@@ -7,24 +7,28 @@ import {BrowserRouter as Router} from 'react-router-dom'
 import 'remixicon/fonts/remixicon.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Web3ReactProvider} from '@web3-react/core';
-
-import {ethers} from 'ethers'
+import {Web3Provider} from '@ethersproject/providers'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const getLibrary = (provider) => {
-  const library = new ethers.providers.Web3Provider(provider);
-  library.pollingInterval = 8000; // frequency provider is polling
+  
+  const library = new Web3Provider(provider);
+  // const library1 = new Web3.providers.Web3Provider(provider);
+
+  library.pollingInterval = 12000; // frequency provider is polling
   return library;
 };
 root.render(
+  <Web3ReactProvider getLibrary={getLibrary}>
   <React.StrictMode>
     <Router>
-    <Web3ReactProvider getLibrary={getLibrary}>
+   
         <App />
-      </Web3ReactProvider>
+    
     </Router> 
   </React.StrictMode>
+  </Web3ReactProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

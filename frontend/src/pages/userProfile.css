@@ -1,0 +1,17 @@
+.user_img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: black;
+    text-align: left;
+    background-image: url(https://storage.googleapis.com/opensea-static/opensea-profile/32.png);
+    margin-top: 50px;
+}
+
+.card{
+
+    margin-top: 40px;
+}
+.user_profile{
+    margin-top: 40px;
+}

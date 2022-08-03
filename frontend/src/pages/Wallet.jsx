@@ -6,33 +6,40 @@ import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import { InjectedConnector } from "@web3-react/injected-connector";
 //import { toHex, truncateAddress } from '../components/utils/utils';
 //import { networkParams } from '../components/networks/networks';
-import { Container, Row, Col, Button } from 'reactstrap';
+import { Container, Row, Col, Button, Toast } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { connect } from '../components/utils/utils';
 import "./wallet.css"
 
 
 
 const Wallet = () => {
-  
+  const isActive = localStorage.getItem("isActive");
   
   const { activate, deactivate, account, library, chainId, active } = useWeb3React();
   const [network, setNetwork] = useState(undefined);
   const [message, setMessage] = useState("");
   const [signature, setSignature] = useState("");
   const [verified, setVerified] = useState();
-  const isActive = localStorage.getItem("isActive");
+  // const isActive = localStorage.getItem("isActive");
 
   const handleNetwork = (e) =>{
     const id = e.target.supportedChainIds;
     setNetwork(Number(id));
   };
 
-   const Injected = new InjectedConnector({
-    supportedChainIds: [1, 3, 4, 5, 42,56, 137],
-   
-    
-  });
+  // if (typeof window.ethereum == 'undefined') {
+  //   console.log('MetaMask is not installed!');
+  // }
+  
+    const Injected = new InjectedConnector({
+      supportedChainIds: [1, 3, 4, 5, 42,56, 137],
+     
+      
+    });
+  
 
+   
   const coinbasewallet = async () =>{
   try {
     const CoinbaseWallet = new WalletLinkConnector({
@@ -75,10 +82,19 @@ const Wallet = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const provider = window.localStorage.getItem("provider");
-  //   if (provider) activate(provider);
-  // }, []);
+  useEffect(() => {
+    const connectWalletOnPageLoad = async () => {
+      if (localStorage?.getItem('isWalletConnected') === 'true') {
+        try {
+          await connect();
+          localStorage.setItem('isWalletConnected', true)
+        } catch (ex) {
+          console.log(ex)
+        }
+      }
+    }
+    connectWalletOnPageLoad()
+  }, []);
 
   const refreshState = () => {
     window.localStorage.setItem("provider", undefined);
@@ -99,6 +115,29 @@ const Wallet = () => {
   //   })
 
   // };
+
+  const connect = () =>{
+
+
+      if (typeof window.ethereum == 'undefined') {
+    console.log('MetaMask is not installed!');
+    alert('MetaMask is not installed!')
+    }
+    else{
+      
+      activate(Injected);
+      
+      setProvider("Injected");
+    
+      localStorage.setItem('isWalletConnected',true)
+      // this.setState({
+      //   isActive:true
+      // })
+     
+    }
+    }
+  
+  
   console.log("ccccccc",account);
   
   return (
@@ -111,18 +150,12 @@ const Wallet = () => {
           <div >
             {/* {this.state.isActive ? "true" : "false"} */}
           
-          <Button onClick={() => {
-                    activate(Injected);
-                    setProvider("Injected");
-                    // this.setState({
-                    //   isActive:true
-                    // })
-                    
-                  }}
-                   
+          <Button onClick={connect}
                   className="btn__metamask">
               <span>Connect to Metamask</span>
           </Button>
+
+          
           
         </div>
           </Col>
@@ -176,7 +209,6 @@ const Wallet = () => {
         </div>
       </Row> 
     </Container>
-  )
-}
+  )}
 
 export default Wallet;

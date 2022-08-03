@@ -3,7 +3,8 @@ import { Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import './hero-section.css'
 
-import FixedPriceNfts from "../FixedPriceNfts/FixedPriceNfts";
+import MarketPlace from "../MarketPlace/MarketPlace";
+
 
 
 const HeroSection = () => {
@@ -42,7 +43,7 @@ NFT marketplace</h2>
 
       <Container>
         <Row>
-          <FixedPriceNfts/>
+          <MarketPlace/>
         </Row>
       </Container>
     </section>

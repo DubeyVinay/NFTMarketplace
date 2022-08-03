@@ -4,7 +4,7 @@ const nonceSchema = new mongoose.Schema({
     nonce:{
         type:Number,
         index:true,
-        default:"0",
+        default:0,
     }
 });
 const use = mongoose.model('nonceSchema',nonceSchema);

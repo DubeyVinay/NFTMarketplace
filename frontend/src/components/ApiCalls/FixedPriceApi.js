@@ -3,7 +3,7 @@ import { useState } from "react";
 import React from "react";
 
 export const createFlatSale = async (formData) => {
-  console.log("form Data", formData);
+  //console.log("form Data", formData);
 
   axios({
     url: "http://localhost:5000/flatesale",

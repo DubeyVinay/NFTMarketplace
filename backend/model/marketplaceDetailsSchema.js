@@ -54,6 +54,10 @@ const MarketplaceDetailsSchema = new mongoose.Schema({
     },
     nft_Description:{
         type:String,
+    },
+    sale_type: {
+        type: String,
+        default: "flatSale",
     }
     
 });
