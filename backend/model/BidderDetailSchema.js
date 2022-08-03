@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-1
+
 const bidderDetailSchema = new mongoose.Schema({
 
     start_time:{

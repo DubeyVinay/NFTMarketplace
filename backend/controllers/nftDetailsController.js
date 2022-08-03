@@ -5,7 +5,7 @@ require('express');
 
 const get_nft_details = async function(req,res){
     try{
-        const data = await nftDetailsSchema.find();
+        const data = await nftDetailsSchema.findOne();
         res.json(data);
     }catch (err) {
         res.json({ message: err })
