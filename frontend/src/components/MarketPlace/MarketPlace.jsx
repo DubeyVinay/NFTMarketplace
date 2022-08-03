@@ -12,6 +12,7 @@ import Web3 from "web3";
 import { LazyBuy,Allowance,SetApprove } from "../utils/utils";
 
 import { useWeb3React } from "@web3-react/core";
+import Card from 'react-bootstrap/Card';
 
 const marketPlaceAddress = process.env.REACT_APP_MARKETPLACE_ADDRESS;
 const wethAddress = process.env.REACT_APP_WETH_ADDRESS;
@@ -123,15 +124,27 @@ const FixedPriceNfts = () => {
             <>
               {/* Name : {item?.nft__name}  <br/>
     <img src={item.uri} alt="" /> */}
-              <div id={item?._id} className="slide_item">
+              {/* <div id={item?._id} className="slide_item">
                 <img src={item?.Imguri} alt="" />
                 <p>{item?.nft__name}</p>
                 <p>{item?.sale_amount}</p>
                 <p></p>
                 <br />
-              </div>
+              </div> */}
+              <Card style={{ width: '18rem' }}>
 
-              <Button data-item-id={item?._id} onClick={FlatBuy}>Buy</Button>
+                                 <Card.Img variant="top" src={item?.Imguri} alt="NFT" />
+                                <Card.Body>
+                                    <Card.Title>{item?.nft__name}</Card.Title>
+                                    <Card.Text>
+                                        {item?.sale_amount}
+                                    </Card.Text>
+
+                                </Card.Body>
+                                 <Button data-item-id={item?._id} onClick={FlatBuy}>Buy</Button>
+                            </Card>
+
+             
             </>
           ))
         }

@@ -32,6 +32,7 @@ const NftForm = () => {
   const wethAddress = process.env.REACT_APP_WETH_ADDRESS;
   const erc721Address = process.env.REACT_APP_ERC721_ADDRESS
   const [isSale, setIsSale] = useState(false)
+  const [saleType,setSaleType] = useState()
   const [formData, setFormData] = useState({
     nft__name: "",
     nft__Description: "",
@@ -179,21 +180,62 @@ const NftForm = () => {
                   <div class="sale" >
                     <Form.Group className="mb-3">
 
-                      <select name="saleType" id="saleType">
-
+                      <select name="saleType" id="saleType" 
+                        onChange={(e) => setSaleType(e.target.value)}
+                      >
+                        <option >Sale Type</option>
                         <option value="fix">Fix Sale</option>
+                        <option value="auction">Auction</option>
+
 
 
 
                       </select>
                       <br />
-                      <Form.Label>Price</Form.Label>
+                     
+
+                      {
+                        saleType == "fix" ? (<>
+                           <Form.Label>Price</Form.Label>
                       <Form.Control
                         type="number"
                         name="sale_amount"
                         value={formData.sale_amount}
                         onChange={handleChange}
                       />
+                        </>) :  (<>
+                          {
+                            saleType == "auction" ? (<>
+                              <Form.Label>Bid Start Price</Form.Label>
+                      <Form.Control
+                        type="number"
+                        name="sale_amount"
+                      />
+
+<Form.Label>Bid End Price</Form.Label>
+                      <Form.Control
+                        type="number"
+                        name="sale_amount"
+                      />
+
+<Form.Label>Bid Start Time</Form.Label>
+                      <Form.Control
+                        type="date"
+                        placeholder="YYYY-MM-DD"
+                      />
+
+
+<Form.Label>Bid End Time</Form.Label>
+                      <Form.Control
+                        type="date"
+                        placeholder="YYYY-MM-DD"
+                      />
+
+                            </>) : null
+                          }
+                          
+                        </>)
+                      }
                     </Form.Group>
                   </div>
                 ) : null
