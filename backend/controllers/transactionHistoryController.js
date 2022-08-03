@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const flateSaleSchema = require('../model/transactionHiistorySchema');
+const transactionHiistorySchema = require('../model/transactionHiistorySchema');
 require('express');
 
 exports.TransactionHistory = async function(req,resp){
