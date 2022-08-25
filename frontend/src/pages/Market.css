@@ -1,0 +1,13 @@
+.market{
+    margin-top: 7%;
+}
+.market h2{
+    text-align: center;
+}
+.filterBtn{
+    text-align: center;
+    
+}
+.filterBtn Button{
+    margin-left: 50px;
+}

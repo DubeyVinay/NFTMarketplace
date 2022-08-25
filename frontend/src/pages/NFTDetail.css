@@ -1,0 +1,36 @@
+.nft_detail{
+    margin-top: 10%;
+
+}
+.nft_title{
+    text-align: center;
+    margin-top: 10%;
+}
+.buy_btn{
+    text-align: center;
+}
+.timer_div{
+    display:flex;
+    margin-left: 15%;
+}
+.timer_div section{
+    display: flex;
+    padding: 0px 2%;
+}
+.timer_div section p{
+    margin-left: 10%;
+}
+.timer p{
+    text-align: center;
+    font-weight: 500;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    
+}
+.timer{
+    border: 2px solid black;
+    padding: 10px 0px;
+    display: flex;
+}
+.timer p{
+    margin-left: 5%;
+}

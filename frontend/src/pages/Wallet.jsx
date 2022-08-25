@@ -106,13 +106,6 @@ const Wallet = () => {
   const setProvider = (type) => {
     window.localStorage.setItem("provider", type);
   };
-  // const disconnect = () => {
-  //   refreshState();
-  //   deactivate();
-  //   localStorage.setItem("isActive",false);
-  //   this.setState({
-  //     isActive:false
-  //   })
 
   // };
 

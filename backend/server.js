@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 require('./model/db');
 
-const port = 8000;
+const port = 5000;
 
 app.use(cors({
     origin: '*'

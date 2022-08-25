@@ -2,16 +2,15 @@ const mongoose = require('mongoose');
 
 const nftDetailsSchema = new mongoose.Schema({
 
-    title:{
+    nft__name:{
         type:String,
     },
-    description:{
+    nft__Description:{
         type:String,
     },
-    token_uri:{
+    uri:{
         type:String,
     },
-    
     token_id:{
         type:Number,
         // unique: false,
@@ -19,18 +18,53 @@ const nftDetailsSchema = new mongoose.Schema({
     collection_address:{
         type:String,
     },
-    creater_address:{
+    nonce:{
+        type:Number,
+    },
+    seller_address:{
         type:String,
     },
     owner_address:{
         type:String,
     },
-    price:{
+    sale_amount:{
         type:Number,
     },
     signature:{
         type:String,
-    }
+    },
+    nft_address:{
+        type: String,
+    },
+    payment_asset_address:{
+        type: String,
+    },
+    royalty:{
+        type: Number,
+    },
+    Imguri: {
+        type: String,
+    },
+    saleType :{
+        type : String,
+    },
+    start_time:{
+        type : String, 
+        default: Date,
+    },
+    end_time:{
+        type:String,
+        default: Date,
+    },
+    starting_amount:{
+        type:Number,
+    },
+    reserve_amount:{
+        type:Number,
+    },
+    decline_amount:{
+        type:Number,
+    },
 
 });
 

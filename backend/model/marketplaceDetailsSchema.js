@@ -3,19 +3,16 @@ const mongoose = require('mongoose');
 const MarketplaceDetailsSchema = new mongoose.Schema({
     start_time:{
         type : String, 
-        default: Date,
+        
     },
     end_time:{
         type:String,
-        default: Date,
+        
     },
     starting_amount:{
         type:Number,
     },
     reserve_amount:{
-        type:Number,
-    },
-    decline_amount:{
         type:Number,
     },
     uri:{
@@ -49,15 +46,33 @@ const MarketplaceDetailsSchema = new mongoose.Schema({
     payment_asset_address:{
         type:String,
     },
-    nft_name:{
+    nft__name:{
         type:String,
     },
-    nft_Description:{
+    nft__Description:{
         type:String,
     },
     sale_type: {
         type: String,
-        default: "flatSale",
+       
+    },
+    Imguri:{
+        type: String,
+    },
+    signature:{
+        type: String,
+    },
+    bidderAddress:{
+        type: String,
+    },
+    bidPrice:{
+        type:Number,
+    },
+    bidderSignature:{
+        type:String,
+    },
+    bidTime:{
+        type:String,
     }
     
 });

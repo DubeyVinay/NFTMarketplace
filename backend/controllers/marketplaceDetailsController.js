@@ -12,12 +12,39 @@ exports.create_post = async function (req, resp) {
 };
 
 
-exports.get_posts = async function (req, resp) {
+exports.getNfts = async function (req, resp) {
 
-    const data = await MarketplaceDetailsSchema.find();
+    let data ;
+    let type = req.query['sale_type']
+    // let owner = req.query['owner']
+
+
+    if(type==="fix"){
+
+    data = await MarketplaceDetailsSchema.find({sale_type:'fix'});
+    console.log("innnnnn",data);
+    }
+    else if(type=='auction'){
+        data = await MarketplaceDetailsSchema.find({sale_type:'auction'});
+
+    }
+   
+    else{
+
+        data = await MarketplaceDetailsSchema.find();
+    }
+
     resp.send(data);
 };
-exports.get_post = async function (req, resp) {
+
+exports.getUserNfts = async function (req, resp) {
+
+    let data ;
+    let owner = req.query['owner']
+    data = await MarketplaceDetailsSchema.find({seller_address:owner});
+    resp.send(data);
+};
+exports.getNft = async function (req, resp) {
 
     const data = await MarketplaceDetailsSchema.findOne(req.params);
     resp.send(data);

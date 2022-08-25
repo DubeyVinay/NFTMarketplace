@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import { InjectedConnector } from '@web3-react/injected-connector'
+import { getMarketplaceNFT } from "../components/ApiCalls/MarketplaceApi"
 const UserProfile = () => {
 
     const { account,activate } = useWeb3React();
@@ -66,7 +67,7 @@ const UserProfile = () => {
 
     const getData = async () => {
 
-        const data = await getFlateSale();
+        const data = await getMarketplaceNFT();
 
         const res = data.data;
         console.log("qqqqq", res[0].seller_address);
@@ -123,7 +124,9 @@ const UserProfile = () => {
                                 <Card.Body>
                                     <Card.Title>{item?.nft__name}</Card.Title>
                                     <Card.Text>
-                                        {item?.nft__Description}
+                                     <p>{item?.nft__Description}</p>
+                                     <p>{item?.sale_type}</p>   
+
                                     </Card.Text>
 
                                 </Card.Body>

@@ -60,4 +60,8 @@
   input:checked + .sale{
     display: block;
   }
+  ._error{
+    color: red;
+    font-size: 12px;
+  }
  

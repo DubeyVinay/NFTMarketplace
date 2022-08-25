@@ -6,6 +6,8 @@ import marketplaceAbi from "./ABI.json"
 import erc721Abi from "./erc721Abi.json"
 import wethAbi from "./wethAbi.json"
 
+require("dotenv").config();
+
 
 const web3 = new Web3(window.ethereum)
 
@@ -47,13 +49,33 @@ export const Sign = async (account,nft_address,token_id,weth_address, tokenURi, 
   return sign;
 };
 
+export const buyerSign = async (accounts,input,bidTime) =>{
+  let message = ethers.utils.solidityPack(
+    ["address", "uint256", "uint256"],
+        [accounts, input, bidTime]
+  );
+
+  let messageHash = ethers.utils.keccak256(message);
+  let sign = await web3.eth.personal.sign(messageHash,accounts);
+
+  console.log(sign);
+  return sign;
+}
+
 export const LazyBuy = async (lazyBuySellerArgs) =>{
 
   let account = await web3.eth.getAccounts();
 
   await marketplace.methods.lazyBuy(lazyBuySellerArgs).send({ from: account[0]});
 
+  return true;
+}
 
+export const LazyAuction = async (lazyAuctionSellerArgs, bidderAgrs) =>{
+  debugger
+  let account = await web3.eth.getAccounts();
+
+  await marketplace.methods.lazyAuction(lazyAuctionSellerArgs, bidderAgrs).send({from: account[0]});
 }
 
 export const SetApprovalForAll = async (status,account) =>{
@@ -67,11 +89,24 @@ export const SetApprove = async (amount,account) =>{
  
 }
 
+export const Deposit = async (amount,account) =>{
+  await weth.methods.deposit(amount).send({from:account});
+  
+ }
+ 
+
 export const Allowance  = async (account,marketPlaceAddress) =>{
  let allowance=  await weth.methods.allowance(account,marketPlaceAddress).call();
  
  return allowance;
  }
+
+
+export const BalanceOf  = async (account) =>{
+  let balance=  await weth.methods.balanceOf(account).call();
+  
+  return balance;
+  }
 
  export const IsApprovalForAll  = async (account) =>{
   let isApporve = await weth.methods.allowance(marketPlaceAddress,account).call();

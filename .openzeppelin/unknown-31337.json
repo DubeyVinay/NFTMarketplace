@@ -1147,7 +1147,7 @@
     },
     {
       "address": "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
-      "txHash": "0x86e85634977a44b5a0f11a9f64a4c3b9391e1e0f26117597a3a166d7cf22c3fc",
+      "txHash": "0x52cc0748b903e82b20f76f9cf3753f8505bb2a58c8cc71be4474193e7264f7c1",
       "kind": "transparent"
     }
   ],
@@ -1893,9 +1893,9 @@
         }
       }
     },
-    "dd2e2cd16d010da4e4abde5106f68203177e4633880f09c35df54987d01399d9": {
+    "a173c82c39102a24fd4684f70cc74e1fde1a4dbc53687254e2cdac0b570ddd5d": {
       "address": "0xA51c1fc2f0D1a1b8494Ed1FE312d7C3a78Ed91C0",
-      "txHash": "0xebc61d7f58c14e5c6489de2a8f5aa57df916bcd65dce70a88491eaaea56171e9",
+      "txHash": "0xf3cfa68b3b36f6d5e518d84c468db08d81a0ce3a882099d51830448e2fdda6cc",
       "layout": {
         "storage": [
           {
@@ -1953,7 +1953,7 @@
             "slot": "102",
             "type": "t_mapping(t_uint256,t_bool)",
             "contract": "MarketPlace",
-            "src": "contracts/MarketPlace.sol:59"
+            "src": "contracts/MarketPlace.sol:60"
           }
         ],
         "types": {

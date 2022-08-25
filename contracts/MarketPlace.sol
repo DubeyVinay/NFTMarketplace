@@ -35,6 +35,7 @@ contract MarketPlace is Initializable, OwnableUpgradeable {
         uint256 amount;
         bytes winnerSignature;
         uint256 bidTime;
+        uint256 nonce;
     }
     //Events
     event flatSale(
@@ -201,14 +202,14 @@ contract MarketPlace is Initializable, OwnableUpgradeable {
 
         require(
             sellerDetails.seller == sellerSigner,
-            "MarketPlace: seller verification failed"
+            "MarketPlace: seller sign verification failed"
         );
 
         address winnerSigner = verifyWinnerSign(winnerDetails);
 
         require(
             winnerDetails.winnerAddress == winnerSigner,
-            "MarketPlace: seller sign verification failed"
+            "MarketPlace: winner sign verification failed"
         );
 
         // Mint
@@ -313,7 +314,8 @@ contract MarketPlace is Initializable, OwnableUpgradeable {
                 sellerDetails.tokenId,
                 sellerDetails.tokenUri,
                 sellerDetails.paymentAssetAddress,
-                sellerDetails.amount
+                sellerDetails.amount,
+                sellerDetails.nonce
             )
         );
         return getSigner(hash, sellerDetails.seller_signature);
@@ -332,7 +334,8 @@ contract MarketPlace is Initializable, OwnableUpgradeable {
             abi.encodePacked(
                 winnerDetails.winnerAddress,
                 winnerDetails.amount,
-                winnerDetails.bidTime
+                winnerDetails.bidTime,
+                winnerDetails.nonce
             )
         );
         return getSigner(hash, winnerDetails.winnerSignature);

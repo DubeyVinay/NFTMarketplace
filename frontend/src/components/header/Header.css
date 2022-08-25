@@ -132,3 +132,6 @@
 .btn:hover{
     border: none !important;
 }
+.header{
+    background-color: #f7f7f7;
+}

@@ -7,6 +7,8 @@ import Wallet from '../pages/Wallet';
 import Contact from '../pages/Contact';
 import Create from '../pages/Create';
 import UserProfile from '../pages/UserProfile';
+import NFTDetail from '../pages/NFTDetail';
+
  
 const Routers  = () => {
   return <Routes>
@@ -17,6 +19,8 @@ const Routers  = () => {
     <Route path='/contact' element={<Contact/>}/>
     <Route path='/create' element={<Create/>}/>
     <Route path='/user' element={<UserProfile/>}/>
+    <Route path="/NFTDetail/:id" element={<NFTDetail/>}/>
+
 
 
 

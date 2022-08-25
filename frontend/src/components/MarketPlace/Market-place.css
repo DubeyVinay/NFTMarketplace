@@ -16,3 +16,31 @@
 .slide_item:hover {
     transform: scale(1.5);
 }
+.carousel .slider-wrapper{
+    margin: 0% !important;
+}
+.slider{
+    background-color: transparent !important;
+}
+a .card-title {
+    color: #07213b;
+    border: none;
+}
+.card-text:last-child{
+    color: #07213b;
+}
+.fixedPriceNft{
+    margin-top: 5rem;
+}
+.auctionButton{
+    text-align: center;
+}
+.auctionButton Button{
+
+    padding: 10px 30px;
+
+    
+}
+.auctionButton a{
+    background-color: #07213b !important;
+}
