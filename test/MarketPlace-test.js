@@ -962,8 +962,7 @@ describe("marketPlace", () => {
     });
     it("Should check  winner sign verification", async () => {
       let nonce = 23;
-      //  userA sign
-      // Get current block.timestamp
+
       let blockNumber = await ethers.provider.getBlockNumber();
       let block = await ethers.provider.getBlock(blockNumber);
 
