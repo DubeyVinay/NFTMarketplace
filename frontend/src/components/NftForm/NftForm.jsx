@@ -49,6 +49,7 @@ const NftForm = () => {
   const [file, setFile] = useState()
   const [myipfsHash, setIPFSHASH] = useState('')
   const [formErrors, setFormErrors] = useState({});
+  const [validate,setValidate] = useState(false);
   
   const [formData, setFormData] = useState({
     nft__name: "",
@@ -91,122 +92,131 @@ const NftForm = () => {
 
     }
     else {
-      setFormErrors(validation(formData));
       
-      const _json = new File([JSON.stringify(formData)], 'metadata.json');
-      console.log("JSON File", _json);
-
-      console.log('starting')
-
-      // initialize the form data
-      const fData = new FormData()
-
-      // append the file form data to 
-      fData.append("file", _json)
-
-      // call the keys from .env
-
-      const API_KEY = "fac6b7fd3b77561f0151"
-      const API_SECRET = '2b23fb1d7cfbae78e2761fd240c7199b34e53d7483b977bb9e5e14eb45b09d4f'
-
-      // the endpoint needed to upload the file
-      const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`
-
-      const response = await axios.post(
-        url,
-        fData,
-        {
-          maxContentLength: "Infinity",
-          headers: {
-            "Content-Type": `multipart/form-data;boundary=${formData._boundary}`,
-            'pinata_api_key': API_KEY,
-            'pinata_secret_api_key': API_SECRET
-
-          }
-        }
-      )
-
-      console.log("file", response.data.IpfsHash)
-
-      formData.uri = response.data.IpfsHash;
-
-
-      // const json_add = await client.add(_json);
-      // const json_cid = json_add.path;
-
-      const _nonce = await Nonce();
-      const res1 = _nonce[0].nonce;
-
-
-      // formData.uri = json_cid;
-      formData.seller_address = account;
-      formData.nonce = res1;
-
-
-      console.log("Form Data", formData);
-
-
-      if (isSale) {
+      await setFormErrors(validation(formData));
+      
+      if (flag == 0) {
+        const _json = new File([JSON.stringify(formData)], 'metadata.json');
+        console.log("JSON File", _json);
+  
         
-        console.log("INSIDE ISSLAE");
-        const _accounts = account;
-        const _tokenUri = formData.uri;
-        const _amount = formData.sale_amount;
-
-        // console.log("Done <<<<<",done);
-        // (setapporforAll(erc721))
-        if (saleType == "fix") {
-          formData.sale_type = saleType
-          console.log("-----------", formData.sale_type);
-          const Signature = await Sign(_accounts, erc721Address, _tokenId, wethAddress, _tokenUri, _amount);
-          console.log("aaaaaaa", Signature);
-          formData.signature = Signature;
-          await createMarketplaceNFT(formData);
-
-        }
-        else {
-          if (saleType == "auction") {
-            
-            const auctionAmount = formData.starting_amount
+  
+        // initialize the form data
+        const fData = new FormData()
+  
+        // append the file form data to 
+        fData.append("file", _json)
+  
+        // call the keys from .env
+  
+        const API_KEY = "fac6b7fd3b77561f0151"
+        const API_SECRET = '2b23fb1d7cfbae78e2761fd240c7199b34e53d7483b977bb9e5e14eb45b09d4f'
+  
+        // the endpoint needed to upload the file
+        const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`
+  
+        const response = await axios.post(
+          url,
+          fData,
+          {
+            maxContentLength: "Infinity",
+            headers: {
+              "Content-Type": `multipart/form-data;boundary=${formData._boundary}`,
+              'pinata_api_key': API_KEY,
+              'pinata_secret_api_key': API_SECRET
+  
+            }
+          }
+        )
+  
+        console.log("file", response.data.IpfsHash)
+  
+        formData.uri = response.data.IpfsHash;
+  
+  
+        // const json_add = await client.add(_json);
+        // const json_cid = json_add.path;
+  
+        const _nonce = await Nonce();
+        const res1 = _nonce[0].nonce;
+  
+  
+        // formData.uri = json_cid;
+        formData.seller_address = account;
+        formData.nonce = res1;
+  
+  
+        console.log("Form Data", formData);
+  
+  
+        if (isSale) {
+          
+          console.log("INSIDE ISSLAE");
+          const _accounts = account;
+          const _tokenUri = formData.uri;
+          const _amount = formData.sale_amount;
+  
+          // console.log("Done <<<<<",done);
+          // (setapporforAll(erc721))
+          if (saleType == "fix") {
             formData.sale_type = saleType
-            const Signature = await Sign(_accounts, erc721Address, _tokenId, wethAddress, _tokenUri, auctionAmount);
+            console.log("-----------", formData.sale_type);
+            const Signature = await Sign(_accounts, erc721Address, _tokenId, wethAddress, _tokenUri, _amount);
             console.log("aaaaaaa", Signature);
             formData.signature = Signature;
-
-
-
             await createMarketplaceNFT(formData);
-
+  
           }
           else {
-            formData.sale_type = ""
-            await createMarketplaceNFT(formData);
-
+            if (saleType == "auction") {
+              
+              const auctionAmount = formData.starting_amount
+              formData.sale_type = saleType
+              const Signature = await Sign(_accounts, erc721Address, _tokenId, wethAddress, _tokenUri, auctionAmount);
+              console.log("aaaaaaa", Signature);
+              formData.signature = Signature;
+  
+  
+  
+              await createMarketplaceNFT(formData);
+  
+            }
+            else {
+              formData.sale_type = ""
+              await createMarketplaceNFT(formData);
+  
+            }
           }
+          const done = await SetApprovalForAll(true, account);
+          await createNFT(formData);
+  
+          await updateNonce(res1)
+  
+          const _nonc1e = await Nonce();
+          const res = _nonc1e[0].nonce;
+  
+          console.log("vvbev--------", res);
+  
+  
         }
-        const done = await SetApprovalForAll(true, account);
-        await createNFT(formData);
-
-        await updateNonce(res1)
-
-        const _nonc1e = await Nonce();
-        const res = _nonc1e[0].nonce;
-
-        console.log("vvbev--------", res);
-
-
+        else {
+          await createNFT(formData);
+          await updateNonce(res1)
+        }
       }
-      else {
-        await createNFT(formData);
-        await updateNonce(res1)
+      else{
+      // setFormErrors(validation(formData));
       }
+      
+    
 
 
     }
     
-    if (!formErrors) {
+    if (flag == 0) {
       navigate('/home');
     }
+    console.log("flag",flag);
 
 
     console.log("Data", formData);
@@ -272,71 +282,87 @@ const NftForm = () => {
     
     const errors = {}
     
-    if (saleType == " ") {
+    if (saleType == "auction") {
       if (!values.nft__name) {
         errors.nft__name = "NFT Name is required"
         flag++;
+        
       }
       if (!values.nft__Description) {
         errors.nft__Description = "NFT Description is required"
         flag++;
+        
+      }
+      if (!values.starting_amount) {
+        errors.starting_amount = "Starting Amount is required"
+        flag++;
+        
+      }
+      if (!values.reserve_amount) {
+        errors.reserve_amount = "Reserve Price is required"
+        flag++;
+       
+      }
+      else {
+        if (values.reserve_amount < values.starting_amount) {
+          errors.reserve_amount = "Reserve Price should be greater than starting price"
+          flag++;
+         
+        }
+      }
+      if (!values.start_time) {
+        errors.start_time = "Starting time is required"
+        flag++;
+        
+      }
+      if (!values.end_time) {
+        errors.end_time = "End time is required"
+        flag++;
+        
       }
       return errors;
     }
-    else {
+    
 
-      if (saleType == "fix") {
+    if (saleType == "fix") {
         if (!values.nft__name) {
           errors.nft__name = "NFT Name is required"
+          
           flag++;
+          
         }
         if (!values.nft__Description) {
           errors.nft__Description = "NFT Description is required"
           flag++;
+         
         }
         
         if (!values.sale_amount) {
           errors.sale_amount = "Sale Price is required"
           flag++;
+         
         }
-        return errors;
+        // return errors;
+        
       }
-      else{
+      
         if (!values.nft__name) {
           errors.nft__name = "NFT Name is required"
           flag++;
+         
         }
         if (!values.nft__Description) {
           errors.nft__Description = "NFT Description is required"
           flag++;
+          
         }
-        if (!values.starting_amount) {
-          errors.starting_amount = "Starting Amount is required"
-          flag++;
-        }
-        if (!values.reserve_amount) {
-          errors.reserve_amount = "Reserve Price is required"
-          flag++;
-        }
-        else {
-          if (values.reserve_amount < values.starting_amount) {
-            errors.reserve_amount = "Reserve Price should be greater than starting price"
-            flag++;
-          }
-        }
-        if (!values.start_time) {
-          errors.start_time = "Starting time is required"
-          flag++;
-        }
-        if (!values.end_time) {
-          errors.end_time = "End time is required"
-          flag++;
-        }
+        
         return errors;
-      }
+        
+      
 
       
-    }
+    
 
     
   }

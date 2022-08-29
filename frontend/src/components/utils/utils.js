@@ -90,7 +90,11 @@ export const SetApprove = async (amount,account) =>{
 }
 
 export const Deposit = async (amount,account) =>{
-  await weth.methods.deposit(amount).send({from:account});
+  debugger
+  let amountInEth = ethers.utils.formatEther(amount)
+  console.log(">>>>>",ethers.utils.parseEther(amountInEth.toString()))
+
+  await weth.methods.deposit().send({from:account,value: ethers.utils.parseEther(amountInEth.toString()) });
   
  }
  

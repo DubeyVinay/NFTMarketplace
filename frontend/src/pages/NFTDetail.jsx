@@ -76,7 +76,7 @@ const NFTDetail = () => {
 
   // const isApporveForAll =()
   const FlatBuy = async () => {
-    
+    debugger
     //  let account = await web3.eth.getAccounts();
     {
 
@@ -95,7 +95,7 @@ const NFTDetail = () => {
         0,
         0
       ]
-      debugger
+      
 
 
       // [
@@ -116,8 +116,9 @@ const NFTDetail = () => {
     }
 
     // if isAppforAll(erc721) ==true && alllwaqnce(weth) => amonut ) /else { apporve(weth)}
-
+    
     let allownce = await Allowance(account, marketPlaceAddress)
+    
     if(await BalanceOf(account)>=nftData.sale_amount){
 
       if (allownce >= lazyBuySellerArgs[6]) {
@@ -138,9 +139,11 @@ const NFTDetail = () => {
         await SetApprove(lazyBuySellerArgs[6], account)
         await LazyBuy(lazyBuySellerArgs);
       }
-      await Deposit(ethers.utils.formatEther(lazyBuySellerArgs[6]), account);
-
+      
     }else{
+      await Deposit(lazyBuySellerArgs[6].toString(), account);
+      // await Deposit(ethers.utils.formatEther(lazyBuySellerArgs[6]), account);
+
 
 
     }
@@ -199,7 +202,7 @@ const NFTDetail = () => {
   
   
   const auctionSale = async () => {
-
+    
     
 
     if (bidDetails.bidPrice > nftData.bidPrice) {
