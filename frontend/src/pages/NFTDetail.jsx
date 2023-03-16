@@ -61,11 +61,13 @@ const NFTDetail = () => {
 
 
 
-  };
+  }; 
+  
 
   const getNFT = async () => {
     const data = await getNFTDetail(id);
     const res = data.data
+    console.log(res);
     setNftData(res)
 
   }
@@ -273,11 +275,11 @@ const NFTDetail = () => {
 
     
     
-      
+    
     
   
 }
-
+console.log("NFTDetail",nftData);
   return (
 
     <>
